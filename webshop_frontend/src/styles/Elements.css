@@ -1,0 +1,17 @@
+#kosar{
+    color:black;
+    font-size: 30px;
+}
+#kosar:hover{
+    color: orange ;
+}
+a{
+    text-decoration:none;
+    color: white;
+}
+a:hover{
+    color: orange;
+}
+p, h1{
+    color: white;
+}
