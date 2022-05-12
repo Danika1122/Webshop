@@ -45,7 +45,7 @@ function TermekekAdmin(props) {
                 <tr style={{border:'1px solid black'}}>
                   <td style={{border:'1px solid black'}}>{item.id}</td>
                   <td style={{border:'1px solid black'}}>{item.nev}</td>
-                  <td style={{border:'1px solid black'}}>{item.ar}</td>
+                  <td style={{border:'1px solid black'}}>{item.ar} Ft</td>
                   <td style={{border:'1px solid black'}}><Button>Módosít</Button></td>
                   <td style={{border:'1px solid black'}}><Button onClick={() => Delete(item.id)} variant="danger">Töröl</Button></td>
                 </tr>
