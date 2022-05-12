@@ -31,7 +31,7 @@ function Termek(props) {
             {instrument.map((item) => (
               <Row>
                 <Col>
-                  <Card.Img src={item.link_kep} style={{ border:'1px solid black'}}></Card.Img>
+                  <Card.Img src={item.link_kep} style={{ border:'1px solid black', height:'25rem'}}></Card.Img>
                 </Col>
                 <Col>
                     <h1 style={{color:'black'}}>{item.nev}</h1>
