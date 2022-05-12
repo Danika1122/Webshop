@@ -21,7 +21,7 @@ function TermekekT(props) {
                 .finally(() => {
                     setPending(false);
                 });
-      }, []);
+      }, [tipus]);
 
       return(
         <div className="p5 m-auto content bg-ivory">
