@@ -26,8 +26,8 @@ function Termekek() {
         (
           <Row>
             {instruments.map((item) => (
-                <Col className="d-flex justify-content-center">
-                <Card key={item.id} onClick={() => window.location.assign(`/termek-${item.id}`)} bg="dark" border="dark" style={{height:'21rem', width:'18rem', margin:'5px', cursor:'pointer',}} >
+                <Col className="d-flex justify-content-center" key={item.id}>
+                <Card onClick={() => window.location.assign(`/termek-${item.id}`)} bg="dark" border="dark" style={{height:'21rem', width:'18rem', margin:'5px', cursor:'pointer',}} >
                   <Card.Img variant="top" src={item.link_kep} style={{height:'12rem'}}/>
                   <Card.Body>
                     <Card.Title style={{color:'white'}}>{item.nev}</Card.Title>
