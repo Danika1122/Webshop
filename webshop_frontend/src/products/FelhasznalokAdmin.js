@@ -46,6 +46,7 @@ function FelhasznalokAdmin(props) {
                     <th style={{border:'1px solid black'}}>Id</th>
                     <th style={{border:'1px solid black'}}>Név</th>
                     <th style={{border:'1px solid black'}}>Email cím</th>
+                    <th style={{border:'1px solid black'}}>Jogosultság</th>
                 </tr>
               </thead>
               <tbody>
@@ -54,6 +55,9 @@ function FelhasznalokAdmin(props) {
                   <td style={{border:'1px solid black'}} >{item.id}</td>
                   <td style={{border:'1px solid black'}} >{item.nev}</td>
                   <td style={{border:'1px solid black'}} >{item.email}</td>
+                  <td style={{border:'1px solid black'}} >
+                    {item.admin}
+                  </td>
                   <td style={{border:'1px solid black'}}><Button onClick={() => Update(item.id)}>Módosít</Button></td>
                   <td style={{border:'1px solid black'}}><Button onClick={() => Delete(item.id)} variant="danger">Töröl</Button></td>
                 </tr>
