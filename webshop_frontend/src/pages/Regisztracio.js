@@ -17,17 +17,22 @@ function Regisztracio() {
             }
         })
         if(e.target.elements.password.value === e.target.elements.password2.value) {
-            if(!tartalmaz) {
-                return axios
-                .put("http://localhost:3001/regisztracio", {nev:(e.target.elements.vezeteknev.value + " " + e.target.elements.keresztnev.value), email:e.target.elements.email.value, jelszo:e.target.elements.password.value})
-                .then(() => {
-                    localStorage.setItem('user', e.target.elements.vezeteknev.value + " " + e.target.elements.keresztnev.value);
-                    navigate(`/webshop`);
-                    window.location.reload();
-                })
+            if(e.target.elements.vezeteknev.value !== "" && e.target.elements.keresztnev.value !== "") {
+                if(!tartalmaz) {
+                    return axios
+                    .put("http://localhost:3001/regisztracio", {nev:(e.target.elements.vezeteknev.value + " " + e.target.elements.keresztnev.value), email:e.target.elements.email.value, jelszo:e.target.elements.password.value})
+                    .then(() => {
+                        localStorage.setItem('user', e.target.elements.vezeteknev.value + " " + e.target.elements.keresztnev.value);
+                        navigate(`/webshop`);
+                        window.location.reload();
+                    })
+                }
+                else {
+                    alert("Az email cím már használatban van.");
+                }
             }
             else {
-                alert("Az email cím már használatban van.");
+                alert("Töltse ki az összes mezőt!");
             }
         }
         else {
