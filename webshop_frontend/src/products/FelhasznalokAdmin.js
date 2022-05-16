@@ -15,13 +15,9 @@ function FelhasznalokAdmin(props) {
         });
   }
 
-  function Update(id, Jelszo, Admin) {
-    if(Jelszo === "" || Admin === "")
-    {
-      alert("Töltse ki az összes mezőt!")
-    }
-    else axios
-      .post(`http://localhost:3001/update-user-${id}`, {jelszo:Jelszo, admin:Admin})
+  function Update(id, Nev, Jelszo, Admin) {
+    axios
+      .post(`http://localhost:3001/update-user-${id}`, {nev:Nev, jelszo:Jelszo, admin:Admin})
       .then(res => {
         console.log(res.data);
         window.location.reload();
@@ -60,13 +56,22 @@ function FelhasznalokAdmin(props) {
               {instruments.map((item) => (
                 <tr key={item.id}>
                   <td>{item.id} </td>
-                  <td>{item.nev} </td>
+                  <td>
+                    <InputGroup>
+                      <FormControl
+                        id={item.nev}
+                        defaultValue={item.nev}
+                        style={{textAlign:'center'}}
+                      >
+                      </FormControl>
+                    </InputGroup>
+                  </td>
                   <td>{item.email} </td>
                   <td>
                     <InputGroup>
                       <FormControl
                         id={item.jelszo}
-                        placeholder={item.jelszo}
+                        defaultValue={item.jelszo}
                         style={{textAlign:'center'}}
                       >
                       </FormControl>
@@ -76,7 +81,7 @@ function FelhasznalokAdmin(props) {
                     <InputGroup>
                       <FormControl
                         id={item.id}
-                        placeholder={item.admin}
+                        defaultValue={item.admin}
                         style={{textAlign:'center'}}
                       >
                       </FormControl>
@@ -85,7 +90,7 @@ function FelhasznalokAdmin(props) {
                   <td>
                     <Button
                       variant="outline-success"
-                      onClick={() => Update(item.id, document.getElementById(item.jelszo).value, document.getElementById(item.id).value)}
+                      onClick={() => Update(item.id, document.getElementById(item.nev).value, document.getElementById(item.jelszo).value, document.getElementById(item.id).value)}
                       >Módosít
                     </Button>
                   </td>
