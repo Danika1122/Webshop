@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Container, Button, Table, InputGroup, FormControl} from "react-bootstrap";
 import axios from "axios";
 
+import UjTermek from "../components/ujTermek";
+
 function TermekekAdmin(props) {
   const[instruments, setInstruments] = useState([]);
   const[isFetchPending, setFetchPending] = useState(false);
