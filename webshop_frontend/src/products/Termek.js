@@ -29,9 +29,9 @@ function Termek(props) {
         (
           <Container style={{marginTop:'40px', marginBottom:'40px'}}>
             {instrument.map((item) => (
-              <Row>
+              <Row key={id}>
                 <Col>
-                  <Card.Img src={item.link_kep} style={{ border:'1px solid black', height:'25rem'}}></Card.Img>
+                  <Card.Img src={item.link_kep} style={{ border:'1px solid black'}}></Card.Img>
                 </Col>
                 <Col>
                     <h1 style={{color:'black'}}>{item.nev}</h1>
