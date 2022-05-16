@@ -16,7 +16,10 @@ function TermekekAdmin(props) {
   }
 
   function Update(id, Nev, Ar) {
-    return axios
+    if(Nev === "" || Nev === "" || Ar === "") {
+      alert("Töltse ki az összes mezőt!")
+    }
+    else axios
       .post(`http://localhost:3001/update-termek-${id}`, {nev:Nev, ar:Ar})
       .then(res => {
         console.log(res.data)
