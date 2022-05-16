@@ -52,16 +52,15 @@ app.get("/termek-:id", function(req, res) {
 });
 
 //UPDATE PRODUCT
-app.put("/update-termek-:id"), function(req, res) {
+app.post("/update-termek-:id", bodyParser.json(),(req, res) => {
     const id = req.params.id;
     const ar = req.body.ar;
-    console.log(id);
     var con = mysql.createConnection({host: "localhost",user: "root",password: "",database: "webshop"});
-    con.query(`UPDATE TERMEKEK SET ar=${ar} WHERE id = ${id};`, function (error, results, fields) {
+    con.query(`UPDATE termekek SET ar='${ar}' WHERE id=${id};`, function (error, results, fields) {
         res.send(results);
     });
     con.end();
-}
+});
 
 //DELETE PRODUCT
 app.delete("/delete-termek-:id", function(req, res) {
@@ -72,6 +71,19 @@ app.delete("/delete-termek-:id", function(req, res) {
     });
     con.end();
 
+});
+
+//UPDATE USER
+app.post("/update-user-:id", bodyParser.json(),(req, res) => {
+    const id = req.params.id;
+    const jelszo = req.body.jelszo;
+    const admin = req.body.admin;
+    var con = mysql.createConnection({host: "localhost",user: "root",password: "",database: "webshop"});
+    con.query(`UPDATE felhasznalok SET jelszo='${jelszo}', admin='${admin}' WHERE id= ${id};`, function (error, results, fields) {
+        res.send(results);
+    });
+    con.end();
+    
 });
 
 //DELETE USER
