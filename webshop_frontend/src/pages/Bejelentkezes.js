@@ -34,10 +34,10 @@ function Bejelentkezes() {
         <Form className="justify-content-center form-label" onSubmit={loginFormSubmit}>
             <Form.Label column="lg" >Bejelentkezés</Form.Label>
             <Form.Group className="mb-3">
-                <Form.Control type="email" placeholder="Email cím" name="email" />
+                <Form.Control type="email" placeholder="Email cím" name="email" required/>
             </Form.Group>
             <Form.Group className="mb-3">
-                <Form.Control type="password" placeholder="Jelszó" name="password" />
+                <Form.Control type="password" placeholder="Jelszó" name="password" required/>
             </Form.Group>
             <Button variant="success" type="submit" id="submitButton">
                 Bejelentkezés
