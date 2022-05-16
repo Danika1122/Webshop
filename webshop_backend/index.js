@@ -23,8 +23,7 @@ app.get("/felhasznalok", function(req, res) {
 app.get("/termekek", function(req, res) {
     var con = mysql.createConnection({host: "localhost",user: "root",password: "",database: "webshop"});
     
-    con.query("SELECT * FROM tulajdonsagok, termekek WHERE termekek.id = tulajdonsagok.termekId;", function (error, results, fields) {
-        if (error) throw error;
+    con.query("SELECT * FROM tulajdonsagok, termekek WHERE termekek.id = tulajdonsagok.Id;", function (error, results, fields) {
         res.send(results);
     });
     con.end();
@@ -34,8 +33,7 @@ app.get("/termekek/:tipus", function(req, res) {
     const tipus = req.params.tipus;
     var con = mysql.createConnection({host: "localhost",user: "root",password: "",database: "webshop"});
 
-    con.query(`SELECT * FROM tulajdonsagok, termekek WHERE termekek.id = tulajdonsagok.termekId && tulajdonsagok.tulajdonsag = "${tipus}";`, function (error, results, fields) {
-        if (error) throw error;
+    con.query(`SELECT * FROM tulajdonsagok, termekek WHERE termekek.id = tulajdonsagok.Id && tulajdonsagok.tulajdonsag = "${tipus}";`, function (error, results, fields) {
         res.send(results);
     });
     con.end();
@@ -45,18 +43,35 @@ app.get("/termek-:id", function(req, res) {
     const id = req.params.id;
     var con = mysql.createConnection({host: "localhost",user: "root",password: "",database: "webshop"});
 
-    con.query(`SELECT * FROM tulajdonsagok, termekek WHERE termekek.id = tulajdonsagok.termekId && termekek.id = "${id}";`, function (error, results, fields) {
+    con.query(`SELECT * FROM tulajdonsagok, termekek WHERE termekek.id = tulajdonsagok.Id && termekek.id = "${id}";`, function (error, results, fields) {
         res.send(results);
     });
+    con.end();
+});
+
+//INSERT PRODUCT
+app.put("/ujTermek", bodyParser.json(),(req, res) =>{
+    const nev = req.body.nev;
+    const ar = req.body.ar;
+    const tulajdonsag = req.body.tulajdonsag;
+    const leiras = req.body.leiras;
+    const linkkep = req.body.linkkep;
+    console.log(nev, ar, tulajdonsag, leiras, linkkep)
+    var con = mysql.createConnection({host: "localhost",user: "root",password: "",database: "webshop"});
+    con.query(`INSERT INTO termekek(nev, ar) VALUES ('${nev}', ${ar});`,function(error, results, fields) {
+        res.send(results);
+    });
+    
     con.end();
 });
 
 //UPDATE PRODUCT
 app.post("/update-termek-:id", bodyParser.json(),(req, res) => {
     const id = req.params.id;
+    const nev = req.body.nev;
     const ar = req.body.ar;
     var con = mysql.createConnection({host: "localhost",user: "root",password: "",database: "webshop"});
-    con.query(`UPDATE termekek SET ar='${ar}' WHERE id=${id};`, function (error, results, fields) {
+    con.query(`UPDATE termekek SET nev='${nev}', ar='${ar}' WHERE id=${id};`, function (error, results, fields) {
         res.send(results);
     });
     con.end();
@@ -76,10 +91,11 @@ app.delete("/delete-termek-:id", function(req, res) {
 //UPDATE USER
 app.post("/update-user-:id", bodyParser.json(),(req, res) => {
     const id = req.params.id;
+    const nev = req.body.nev;
     const jelszo = req.body.jelszo;
     const admin = req.body.admin;
     var con = mysql.createConnection({host: "localhost",user: "root",password: "",database: "webshop"});
-    con.query(`UPDATE felhasznalok SET jelszo='${jelszo}', admin='${admin}' WHERE id= ${id};`, function (error, results, fields) {
+    con.query(`UPDATE felhasznalok SET nev='${nev}', jelszo='${jelszo}', admin='${admin}' WHERE id= ${id};`, function (error, results, fields) {
         res.send(results);
     });
     con.end();
