@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Container, Button, Table} from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Button, Table, InputGroup, FormControl} from "react-bootstrap";
 import axios from "axios";
 
 function TermekekAdmin(props) {
@@ -10,8 +10,18 @@ function TermekekAdmin(props) {
     return axios
       .delete(`http://localhost:3001/delete-termek-${id}`)
       .then(res => {
+        console.log(res.data);
         window.location.reload();
-            });
+        });
+  }
+
+  function Update(id, Ar) {
+    return axios
+      .post(`http://localhost:3001/update-termek-${id}`, {ar:Ar})
+      .then(res => {
+        console.log(res.data)
+        window.location.reload();
+        });
   }
   
   useEffect(() => {
@@ -34,20 +44,41 @@ function TermekekAdmin(props) {
           <Container className="text-center">
             <Table style={{border:'1px solid black'}}>
               <thead>
-                <tr style={{border:'1px solid black'}}>
-                  <th style={{border:'1px solid black'}}>Id</th>
-                  <th style={{border:'1px solid black'}}>Név</th>
-                  <th style={{border:'1px solid black'}}>Ár</th>
+                <tr>
+                  <th>Id</th>
+                  <th>Név</th>
+                  <th>Ár</th>
                 </tr>
               </thead>
               <tbody>
               {instruments.map((item) => (
-                <tr style={{border:'1px solid black'}}>
-                  <td style={{border:'1px solid black'}}>{item.id}</td>
-                  <td style={{border:'1px solid black'}}>{item.nev}</td>
-                  <td style={{border:'1px solid black'}}>{item.ar} Ft</td>
-                  <td style={{border:'1px solid black'}}><Button>Módosít</Button></td>
-                  <td style={{border:'1px solid black'}}><Button onClick={() => Delete(item.id)} variant="danger">Töröl</Button></td>
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{item.nev}</td>
+                  <td>
+                    <InputGroup>
+                      <FormControl
+                        id={item.id}
+                        placeholder={item.ar}
+                        style={{textAlign:'center'}}
+                      >
+                      </FormControl>
+                    </InputGroup>
+                  </td>
+                  <td>
+                    <Button
+                      variant="outline-success"
+                      onClick={() => Update(item.id, document.getElementById(item.id).value)}
+                      >Módosít
+                    </Button>
+                  </td>
+                  <td style={{border:'1px solid black'}}>
+                    <Button 
+                      variant="outline-danger"
+                      onClick={() => Delete(item.id)}
+                      >Töröl
+                    </Button>
+                  </td>
                 </tr>
               ))}
               </tbody>
