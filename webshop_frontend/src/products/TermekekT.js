@@ -30,7 +30,7 @@ function TermekekT(props) {
             <Container>
                 <Row className="d-flex md-2">
                 {instrument.map((item) => (
-                  <Col className="d-flex justify-content-center">
+                  <Col className="d-flex justify-content-center" key={item.id} style={{paddingTop:'20px'}}>
                   <Card key={item.id} onClick={() => window.location.assign(`/termek-${item.id}`)} bg="dark" border="dark" style={{width:'18rem', height:'21rem', margin:'5px', cursor:'pointer',}} >
                     <Card.Img variant="top" src={item.link_kep} style={{height:'12rem'}}/>
                     <Card.Body>
