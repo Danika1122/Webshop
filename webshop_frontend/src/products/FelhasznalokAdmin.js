@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container, Button, Table} from "react-bootstrap";
+import { Container, Button, Table, InputGroup, FormControl} from "react-bootstrap";
 import axios from "axios";
 
 function FelhasznalokAdmin(props) {
@@ -15,11 +15,17 @@ function FelhasznalokAdmin(props) {
         });
   }
 
-  function Update(id) {
-    return axios
-    .put(`http://localhost:3001/update-user-${id}`, /*{id:e.target.elements.vezeteknev.value, nev:e.target.elements.email.value, ar:e.target.elements.password.value}*/)
+  function Update(id, Jelszo, Admin) {
+    if(Jelszo === "" || Admin === "")
+    {
+      alert("Töltse ki az összes mezőt!")
+    }
+    else axios
+      .post(`http://localhost:3001/update-user-${id}`, {jelszo:Jelszo, admin:Admin})
       .then(res => {
-    });
+        console.log(res.data);
+        window.location.reload();
+        });
   }
   
   useEffect(() => {
@@ -43,23 +49,53 @@ function FelhasznalokAdmin(props) {
             <Table style={{border:'1px solid black'}}>
               <thead>
                 <tr style={{border:'1px solid black'}}>
-                    <th style={{border:'1px solid black'}}>Id</th>
-                    <th style={{border:'1px solid black'}}>Név</th>
-                    <th style={{border:'1px solid black'}}>Email cím</th>
-                    <th style={{border:'1px solid black'}}>Jogosultság</th>
+                    <th>Id</th>
+                    <th>Név</th>
+                    <th>Email cím</th>
+                    <th>Jelszó</th>
+                    <th>Jogosultság</th>
                 </tr>
               </thead>
               <tbody>
               {instruments.map((item) => (
-                <tr style={{border:'1px solid black'}}>
-                  <td style={{border:'1px solid black'}} >{item.id}</td>
-                  <td style={{border:'1px solid black'}} >{item.nev}</td>
-                  <td style={{border:'1px solid black'}} >{item.email}</td>
-                  <td style={{border:'1px solid black'}} >
-                    {item.admin}
+                <tr key={item.id}>
+                  <td>{item.id} </td>
+                  <td>{item.nev} </td>
+                  <td>{item.email} </td>
+                  <td>
+                    <InputGroup>
+                      <FormControl
+                        id={item.jelszo}
+                        placeholder={item.jelszo}
+                        style={{textAlign:'center'}}
+                      >
+                      </FormControl>
+                    </InputGroup>
                   </td>
-                  <td style={{border:'1px solid black'}}><Button onClick={() => Update(item.id)}>Módosít</Button></td>
-                  <td style={{border:'1px solid black'}}><Button onClick={() => Delete(item.id)} variant="danger">Töröl</Button></td>
+                  <td>
+                    <InputGroup>
+                      <FormControl
+                        id={item.id}
+                        placeholder={item.admin}
+                        style={{textAlign:'center'}}
+                      >
+                      </FormControl>
+                    </InputGroup>
+                  </td>
+                  <td>
+                    <Button
+                      variant="outline-success"
+                      onClick={() => Update(item.id, document.getElementById(item.jelszo).value, document.getElementById(item.id).value)}
+                      >Módosít
+                    </Button>
+                  </td>
+                  <td style={{border:'1px solid black'}}>
+                    <Button
+                      variant="outline-danger"
+                      onClick={() => Delete(item.id)}
+                      >Töröl
+                    </Button>
+                  </td>
                 </tr>
               ))}
               </tbody>
