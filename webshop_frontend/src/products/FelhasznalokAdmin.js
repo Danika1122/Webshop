@@ -19,8 +19,7 @@ function FelhasznalokAdmin(props) {
     if(Nev === "" || Jelszo === "" || Admin === "") {
       alert("Töltse ki az összes mezőt!")
     }
-    else
-    axios
+    else axios
       .post(`http://localhost:3001/update-user-${id}`, {nev:Nev, jelszo:Jelszo, admin:Admin})
       .then(res => {
         console.log(res.data);
