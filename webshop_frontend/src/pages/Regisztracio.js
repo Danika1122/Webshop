@@ -17,22 +17,17 @@ function Regisztracio() {
             }
         })
         if(e.target.elements.password.value === e.target.elements.password2.value) {
-            if(e.target.elements.vezeteknev.value !== "" && e.target.elements.keresztnev.value !== "") {
-                if(!tartalmaz) {
-                    return axios
-                    .put("http://localhost:3001/regisztracio", {nev:(e.target.elements.vezeteknev.value + " " + e.target.elements.keresztnev.value), email:e.target.elements.email.value, jelszo:e.target.elements.password.value})
-                    .then(() => {
-                        localStorage.setItem('user', e.target.elements.vezeteknev.value + " " + e.target.elements.keresztnev.value);
-                        navigate(`/webshop`);
-                        window.location.reload();
-                    })
-                }
-                else {
-                    alert("Az email cím már használatban van.");
-                }
+            if(!tartalmaz) {
+                return axios
+                .put("http://localhost:3001/regisztracio", {nev:(e.target.elements.vezeteknev.value + " " + e.target.elements.keresztnev.value), email:e.target.elements.email.value, jelszo:e.target.elements.password.value})
+                .then(() => {
+                    localStorage.setItem('user', e.target.elements.vezeteknev.value + " " + e.target.elements.keresztnev.value);
+                    navigate(`/webshop`);
+                    window.location.reload();
+                })
             }
             else {
-                alert("Töltse ki az összes mezőt!");
+                alert("Az email cím már használatban van.");
             }
         }
         else {
@@ -46,19 +41,19 @@ function Regisztracio() {
             <Form className="justify-content-center form-label" onSubmit={signUpFormSubmit}>
                 <Form.Label column="lg" >Regisztráció</Form.Label>
                 <Form.Group className="mb-3">
-                    <Form.Control name="vezeteknev" placeholder="Vezetéknév" />
+                    <Form.Control name="vezeteknev" placeholder="Vezetéknév" required/>
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Form.Control name="keresztnev" placeholder="Keresztnév" />
+                    <Form.Control name="keresztnev" placeholder="Keresztnév" required/>
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Form.Control name="email" placeholder="Email cím" type="email" />
+                    <Form.Control name="email" placeholder="Email cím" type="email" required/>
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Form.Control name="password" placeholder="Jelszó" type="password" />
+                    <Form.Control name="password" placeholder="Jelszó" type="password" required/>
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Form.Control name="password2" placeholder="Jelszó újra" type="password" />
+                    <Form.Control name="password2" placeholder="Jelszó újra" type="password" required/>
                 </Form.Group>
                 <Button variant="success" type="submit">
                     Regisztráció
