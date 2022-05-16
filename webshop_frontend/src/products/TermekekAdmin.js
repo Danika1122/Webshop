@@ -15,9 +15,9 @@ function TermekekAdmin(props) {
         });
   }
 
-  function Update(id, Ar) {
+  function Update(id, Nev, Ar) {
     return axios
-      .post(`http://localhost:3001/update-termek-${id}`, {ar:Ar})
+      .post(`http://localhost:3001/update-termek-${id}`, {nev:Nev, ar:Ar})
       .then(res => {
         console.log(res.data)
         window.location.reload();
@@ -54,12 +54,21 @@ function TermekekAdmin(props) {
               {instruments.map((item) => (
                 <tr key={item.id}>
                   <td>{item.id}</td>
-                  <td>{item.nev}</td>
+                  <td>
+                    <InputGroup>
+                      <FormControl
+                        id={item.nev}
+                        defaultValue={item.nev}
+                        style={{textAlign:'center'}}
+                      >
+                      </FormControl>
+                    </InputGroup>
+                  </td>
                   <td>
                     <InputGroup>
                       <FormControl
                         id={item.id}
-                        placeholder={item.ar}
+                        defaultValue={item.ar}
                         style={{textAlign:'center'}}
                       >
                       </FormControl>
@@ -68,7 +77,7 @@ function TermekekAdmin(props) {
                   <td>
                     <Button
                       variant="outline-success"
-                      onClick={() => Update(item.id, document.getElementById(item.id).value)}
+                      onClick={() => Update(item.id, document.getElementById(item.nev).value, document.getElementById(item.id).value)}
                       >Módosít
                     </Button>
                   </td>
