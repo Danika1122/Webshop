@@ -6,22 +6,28 @@ import {Modal, Button, Form } from 'react-bootstrap';
 
 
 function UjTermek() {
-
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
   
-    function HozzaAd(Nev, Ar, Tulajdonsag, Leiras, Linkkep) {
-        if(Nev === "" || Ar === "") {
-            alert("Töltse ki az összes mezőt!")
-        }
-        else axios
-          .put(`http://localhost:3001/ujTermek`, {nev:Nev, ar:Ar, tulajdonsag:Tulajdonsag, leiras:Leiras, linkkep:Linkkep})
+    function HozzaAdTermek(Nev, Ar, Tulajdonsag, Leiras, Linkkep) {
+      if(Nev === "" || Ar === "" || Tulajdonsag === "" || Leiras === "" || Linkkep === "") {
+        alert("Töltse ki az összes mezőt!");
+      }
+      else {
+        axios
+          .put(`http://localhost:3001/ujTermek`, {nev:Nev, ar:Ar})
           .then(res => {
             console.log(res.data);
-            window.location.reload();
-            });
-        }
+          });
+        axios
+          .put(`http://localhost:3001/ujTermekTulajdonsag`, {tulajdonsag:Tulajdonsag, leiras:Leiras, linkkep:Linkkep})
+          .then(res => {
+              alert("Termék hozzáadva.")
+              window.location.reload();
+          });
+      }
+    }
 
     return (
       <>
@@ -76,7 +82,7 @@ function UjTermek() {
             <Button variant="secondary" onClick={handleClose}>
               Bezárás
             </Button>
-            <Button variant="primary" onClick={() => HozzaAd(document.getElementById('nev').value, document.getElementById('ar').value, document.getElementById('tulajdonsag').value, document.getElementById('leiras').value, document.getElementById('linkkep').value)}>
+            <Button variant="primary" onClick={() => HozzaAdTermek(document.getElementById('nev').value, document.getElementById('ar').value, document.getElementById('tulajdonsag').value, document.getElementById('leiras').value, document.getElementById('linkkep').value)}>
               Mentés
             </Button>
           </Modal.Footer>
