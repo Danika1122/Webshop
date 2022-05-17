@@ -47,6 +47,7 @@ function TermekekAdmin(props) {
         {isFetchPending ? ( <div className="spinner-border"></div> ) : 
         (
           <Container className="text-center">
+            <UjTermek/>
             <Table style={{border:'1px solid black'}}>
               <thead>
                 <tr>
@@ -79,6 +80,7 @@ function TermekekAdmin(props) {
                       </FormControl>
                     </InputGroup>
                   </td>
+                  <td>{item.tulajdonsag}</td>
                   <td>
                     <Button
                       variant="outline-success"
