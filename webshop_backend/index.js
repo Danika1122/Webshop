@@ -53,12 +53,23 @@ app.get("/termek-:id", function(req, res) {
 app.put("/ujTermek", bodyParser.json(),(req, res) =>{
     const nev = req.body.nev;
     const ar = req.body.ar;
+    console.log(nev, ar)
+    var con = mysql.createConnection({host: "localhost",user: "root",password: "",database: "webshop"});
+    con.query(`INSERT INTO termekek(nev, ar) VALUES ('${nev}', ${ar});`,function(error, results, fields) {
+        res.send(results);
+    });
+    
+    con.end();
+});
+
+//INSERT PRODUCT PROPERTY
+app.put("/ujTermekTulajdonsag", bodyParser.json(),(req, res) =>{
     const tulajdonsag = req.body.tulajdonsag;
     const leiras = req.body.leiras;
     const linkkep = req.body.linkkep;
-    console.log(nev, ar, tulajdonsag, leiras, linkkep)
+    console.log(tulajdonsag, leiras, linkkep)
     var con = mysql.createConnection({host: "localhost",user: "root",password: "",database: "webshop"});
-    con.query(`INSERT INTO termekek(nev, ar) VALUES ('${nev}', ${ar});`,function(error, results, fields) {
+    con.query(`INSERT INTO tulajdonsagok(tulajdonsag, leiras, link_kep) VALUES ('${tulajdonsag}', '${leiras}', '${linkkep}');`,function(error, results, fields) {
         res.send(results);
     });
     
