@@ -54,6 +54,7 @@ function TermekekAdmin(props) {
                   <th>Id</th>
                   <th>Név</th>
                   <th>Ár</th>
+                  <th>Típus</th>
                 </tr>
               </thead>
               <tbody>
