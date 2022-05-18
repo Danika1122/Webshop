@@ -11,15 +11,16 @@ function UjTermek() {
     const handleShow = () => setShow(true);
   
     function HozzaAdTermek(Nev, Ar, Tulajdonsag, Leiras, Linkkep) {
+      const ar = parseInt(Ar);
       if(Nev === "" || Ar === "" || Tulajdonsag === "" || Leiras === "" || Linkkep === "") {
         alert("Töltse ki az összes mezőt!");
       }
-      else if(Ar < 1 || !parseInt(Ar)) {
+      else if(!parseInt(Ar)) {
         alert("Valós árat adjon meg!")
       }
       else {
         axios
-          .put(`http://localhost:3001/ujTermek`, {nev:Nev, ar:Ar})
+          .put(`http://localhost:3001/ujTermek`, {nev:Nev, ar:ar})
           .then(res => {
             console.log(res.data);
           });
