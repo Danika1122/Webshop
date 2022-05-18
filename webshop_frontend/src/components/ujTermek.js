@@ -14,7 +14,7 @@ function UjTermek() {
       if(Nev === "" || Ar === "" || Tulajdonsag === "" || Leiras === "" || Linkkep === "") {
         alert("Töltse ki az összes mezőt!");
       }
-      else if(Ar !== Number) {
+      else if(Ar < 1 || !parseInt(Ar)) {
         alert("Valós árat adjon meg!")
       }
       else {
