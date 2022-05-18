@@ -16,58 +16,7 @@ function Top() {
     window.location.assign("/webshop");
   }
 
-  if(user) {
-    return (
-      <Container>
-      <Row>
-        <Col className="d-flex align-items-center justify-content-between">
-            <a href="/webshop">
-              <img src={logo} alt="logo" width="75" height="75"/>
-            </a>
-            <Kosar />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="justify-content-center">
-          <Navbar.Brand style={{cursor:'default'}}>BDKWebshop</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="me-auto">
-              <Nav.Link href="/webshop">Kezdőlap</Nav.Link>
-              <NavDropdown title="Hardverek" id="collasible-nav-dropdown">
-                  <NavDropdown.Item key="processzor" onClick={() => window.location.assign(`/termekek/processzor`)}>Processzor</NavDropdown.Item>
-                  <NavDropdown.Item key="videokartya" onClick={() => window.location.assign(`/termekek/videokartya`)}>Videókártya</NavDropdown.Item>
-                  <NavDropdown.Item key="ram" onClick={() => window.location.assign(`/termekek/ram`)}>Ram</NavDropdown.Item>
-                  <NavDropdown.Item key="merevlemez" onClick={() => window.location.assign(`/termekek/merevlemez`)}>Merevlemez</NavDropdown.Item>
-                  <NavDropdown.Item key="alaplap" onClick={() => window.location.assign(`/termekek/alaplap`)}>Alaplap</NavDropdown.Item>
-                  <NavDropdown.Item key="tápegység" onClick={() => window.location.assign(`/termekek/tápegység`)}>Tápegység</NavDropdown.Item>
-              </NavDropdown>
-              <NavDropdown title="Külső perifériák" id="collasible-nav-dropdown">
-                  <NavDropdown.Item key="billentyűzet" onClick={() => window.location.assign(`/termekek/billentyűzet`)}>Billentyűzet</NavDropdown.Item>
-                  <NavDropdown.Item key="egér" onClick={() => window.location.assign(`/termekek/egér`)}>Egér</NavDropdown.Item>
-                  <NavDropdown.Item key="monitor" onClick={() => window.location.assign(`/termekek/monitor`)}>Monitor</NavDropdown.Item>
-              </NavDropdown>
-              <NavDropdown title="Egyéb kiegészítők" id="collasible-nav-dropdown">
-                  <NavDropdown.Item key="egerpad" onClick={() => window.location.assign(`/termekek/egerpad`)}>Egérpad</NavDropdown.Item>
-                  <NavDropdown.Item key="fejhallgato" onClick={() => window.location.assign(`/termekek/fejhallgato`)}>Fejhallgató</NavDropdown.Item>
-                  <NavDropdown.Item key="gephaz" onClick={() => window.location.assign(`/termekek/gephaz`)}>Gépház</NavDropdown.Item>
-              </NavDropdown>
-              </Nav>
-              <Nav>
-              <Nav.Link disabled style={{color:'white'}}>
-                Bejelentkezve: {user}
-              </Nav.Link>
-                <Nav.Link onClick={Logout} href="#">Kijelentkezés</Nav.Link>
-              </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-        </Col>
-      </Row>
-    </Container>
-    )
-  }
-  else if(admin) {
+  if(admin) {
     return (
       <Container>
         <Row>
@@ -139,8 +88,20 @@ function Top() {
                 </NavDropdown>
                 </Nav>
                 <Nav>
-                  <Nav.Link href="/bejelentkezes">Bejelentkezés</Nav.Link>
-                  <Nav.Link href="/regisztracio">Regisztráció</Nav.Link>
+                  {user ? (
+                    <Nav>
+                    <Nav.Link disabled style={{color:'white'}}>
+                      Bejelentkezve: {user}
+                    </Nav.Link>
+                      <Nav.Link onClick={Logout} href="#">Kijelentkezés</Nav.Link>
+                    </Nav>
+                  ) 
+                  : (
+                  <Nav>
+                    <Nav.Link href="/bejelentkezes">Bejelentkezés</Nav.Link>
+                    <Nav.Link href="/regisztracio">Regisztráció</Nav.Link>
+                  </Nav>
+                  )}
                 </Nav>
             </Navbar.Collapse>
           </Navbar>
