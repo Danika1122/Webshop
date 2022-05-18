@@ -11,7 +11,6 @@ app.use(cors({
 //USERS
 app.get("/felhasznalok", function(req, res) {
     var con = mysql.createConnection({host: "localhost",user: "root",password: "",database: "webshop"});
-    
     con.query("SELECT * FROM felhasznalok;", function (error, results, fields) {
         if (error) throw error;
         res.send(results);
@@ -22,7 +21,6 @@ app.get("/felhasznalok", function(req, res) {
 //RESULTS
 app.get("/termekek", function(req, res) {
     var con = mysql.createConnection({host: "localhost",user: "root",password: "",database: "webshop"});
-    
     con.query("SELECT * FROM tulajdonsagok, termekek WHERE termekek.id = tulajdonsagok.Id;", function (error, results, fields) {
         res.send(results);
     });
@@ -32,7 +30,6 @@ app.get("/termekek", function(req, res) {
 app.get("/termekek/:tipus", function(req, res) {
     const tipus = req.params.tipus;
     var con = mysql.createConnection({host: "localhost",user: "root",password: "",database: "webshop"});
-
     con.query(`SELECT * FROM tulajdonsagok, termekek WHERE termekek.id = tulajdonsagok.Id && tulajdonsagok.tulajdonsag = "${tipus}";`, function (error, results, fields) {
         res.send(results);
     });
@@ -42,7 +39,6 @@ app.get("/termekek/:tipus", function(req, res) {
 app.get("/termek-:id", function(req, res) {
     const id = req.params.id;
     var con = mysql.createConnection({host: "localhost",user: "root",password: "",database: "webshop"});
-
     con.query(`SELECT * FROM tulajdonsagok, termekek WHERE termekek.id = tulajdonsagok.Id && termekek.id = "${id}";`, function (error, results, fields) {
         res.send(results);
     });
@@ -53,7 +49,6 @@ app.get("/termek-:id", function(req, res) {
 app.put("/ujTermek", bodyParser.json(),(req, res) =>{
     const nev = req.body.nev;
     const ar = req.body.ar;
-    console.log(nev, ar)
     var con = mysql.createConnection({host: "localhost",user: "root",password: "",database: "webshop"});
     con.query(`INSERT INTO termekek(nev, ar) VALUES ('${nev}', ${ar});`,function(error, results, fields) {
         res.send(results);
@@ -67,7 +62,6 @@ app.put("/ujTermekTulajdonsag", bodyParser.json(),(req, res) =>{
     const tulajdonsag = req.body.tulajdonsag;
     const leiras = req.body.leiras;
     const linkkep = req.body.linkkep;
-    console.log(tulajdonsag, leiras, linkkep)
     var con = mysql.createConnection({host: "localhost",user: "root",password: "",database: "webshop"});
     con.query(`INSERT INTO tulajdonsagok(tulajdonsag, leiras, link_kep) VALUES ('${tulajdonsag}', '${leiras}', '${linkkep}');`,function(error, results, fields) {
         res.send(results);
