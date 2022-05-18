@@ -64,6 +64,8 @@ function TermekekAdmin(props) {
                   <td>
                     <InputGroup>
                       <FormControl
+                        as="textarea"
+                        rows={2}
                         id={item.nev}
                         defaultValue={item.nev}
                         style={{textAlign:'center'}}
