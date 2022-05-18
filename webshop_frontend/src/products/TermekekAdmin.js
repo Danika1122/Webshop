@@ -76,6 +76,9 @@ function TermekekAdmin(props) {
                   <td>
                     <InputGroup>
                       <FormControl
+                        as="textarea"
+                        rows={1}
+                        cols={2}
                         id={item.id}
                         defaultValue={item.ar}
                         style={{textAlign:'center'}}
